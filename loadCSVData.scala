@@ -70,8 +70,12 @@ object Main {
         reviewers.find(reviewer => reviewer.rId == rID)
     def getRatingsFromMID(mID: Int, ratings: Array[Rating]): Array[Rating] =
         ratings.filter(rating => rating.mId == mID)
-    def getReviewerByName()
-    
+    def getReviewerByName(Directorname : String, reviewers : Array[Reviewer]) : Array[Reviewer] = 
+        return reviewers.filter(_.name==Directorname)
+    def getRatingsFromRID(rIDatrouver: Int, ratings: Array[Rating]):Array[Rating] =
+        return ratings.filter(_.rID == rIDatrouver)
+    def getMoviefromMID(mIDatrouver: Int, movies: Array[Movie]):Array[Movie] =
+        return movies.filter(_.mid==mIDatrouver)
 
     def display(matchingReviews: Array[(String, String, Int)]): Unit = {
         println("Examinateur, Titre du film, Nombre d'étoiles :")
@@ -110,6 +114,17 @@ object Main {
         println(s"Les personnes qui ont noté '$nameMovie' :")
         reviewTitle.foreach(println)
         //Exercice 4 ----------
-        val ExaminateurFilms = 
+        var ExaminateurFilms: Array[Reviewer] = movies.flatMap(movie => getReviewerByName(movie.director, reviewers)).distinct
+
+        var etoileRealisateur : Array[Rating] = ExaminateurFilms.flatMap(x => getRatingsFromRID(x.rId, ratings))
+
+        var filmRealisateur = etoileRealisateur.flatMap(x=>getMoviefromMID(x.mId, movies))
+
+        for (index <- etoileRealisateur.indices) {
+            println(filmRealisateur(index).director)
+            println(filmRealisateur(index).title)
+            println(etoileRealisateur(index).stars)
+        }
+        //Exercice 5 ---------------
     }
 }
