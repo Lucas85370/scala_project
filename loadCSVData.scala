@@ -126,5 +126,6 @@ object Main {
             println(etoileRealisateur(index).stars)
         }
         //Exercice 5 ---------------
+        var evalFilm: Array[Reviewer] = movies.flatMap(movie => getReviewerByName)
     }
 }
