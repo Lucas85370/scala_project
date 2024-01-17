@@ -67,16 +67,26 @@ object Main {
         return reviewers;
     }
     def getReviewersFromRID(rID: Int, reviewers: Array[Reviewer]): Option[Reviewer] =
-        reviewers.find(reviewer => reviewer.rId == rID)
+        return reviewers.find(reviewer => reviewer.rId == rID)
+    
     def getRatingsFromMID(mID: Int, ratings: Array[Rating]): Array[Rating] =
-        ratings.filter(rating => rating.mId == mID)
+        return ratings.filter(rating => rating.mId == mID)
+    
     def getReviewerByName(Directorname : String, reviewers : Array[Reviewer]) : Array[Reviewer] = 
         return reviewers.filter(_.name==Directorname)
+    
     def getRatingsFromRID(rIDatrouver: Int, ratings: Array[Rating]):Array[Rating] =
         return ratings.filter(_.rID == rIDatrouver)
+    
     def getMoviefromMID(mIDatrouver: Int, movies: Array[Movie]):Array[Movie] =
         return movies.filter(_.mid==mIDatrouver)
+    
+    def getExtractTitleByMID(midaTrouver: Int, movies: Array[Movie]):String = 
+        return movies.filter(_.mid==midaTrouver)(0).title
 
+    def getExtractNameByRID(rIDaTrouver: Int, reviewers: Array[Reviewer]):String =
+        return reviewers.filter(_.rId==rIDaTrouver)(0).name
+    
     def display(matchingReviews: Array[(String, String, Int)]): Unit = {
         println("Examinateur, Titre du film, Nombre d'étoiles :")
         matchingReviews.foreach { case (reviewer, title, stars) =>
@@ -126,6 +136,9 @@ object Main {
             println(etoileRealisateur(index).stars)
         }
         //Exercice 5 ---------------
-        var evalFilm: Array[Reviewer] = movies.flatMap(movie => getReviewerByName)
+        println(getExtractNameByRID(201,reviewers))
+        println(getExtractTitleByMID(101, movies))
+        //Exercice 6 ---------------
+        
     }
 }
